@@ -7,6 +7,9 @@ class protoLibrary {
       playlists: [],
     }
   }
+  addPlaylist(playlist){
+    this.state.playlists.push(playlist)
+  }
 }
 
 class protoPlaylist {
@@ -16,23 +19,23 @@ class protoPlaylist {
       name: name,
       tracks: [],
     }
+    addTrack(tracks){
+      this.state.tracks.push(tracks)
+    } 
   }
 
-  overallRating = (this.state.tracks) => {
+  overallRating = () => {
     let tracks = this.state.tracks;
-    let result = null;
-    for (var i = 0; i < tracks.length; i++) {
-      result += (tracks[i] / tracks.length);
-    }
-    return result;
+    let totalRating = 0;
+    tracks.forEach((track)=> totalRating += track.rating);
+    totalRating = Math.round(totalRating / tracks.length);
+    return totalRating;
   }
 
   totalDuration = (n) => {
-    let sum = 0;
-    for (let i = n; i >= 1; i--){
-      sum += 1;
-    }
-    return sum;
+    let time = 0;
+    this.state.tracks.forEach((track)=> time += track.length) 
+    return time;
   }
 }
 
